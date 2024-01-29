@@ -1,0 +1,59 @@
+<!-- templates/teams_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams List</title>
+</head>
+<body>
+    <h1>Teams List</h1>
+    <form method="post" action="{{ url_for('search') }}">
+        <input type="text" name="search_query" placeholder="Search teams">
+        <button type="submit">Search</button>
+    </form>
+    <!-- templates/teams_list.html -->
+
+<h1>Search Results</h1>
+
+<h2>Matching Teams</h2>
+<ul>
+  {% for team in teams %}
+    <li>{{ team.name }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Matching Fixtures</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Event Date</th>
+      <th>Home Team</th>
+      <th>Away Team</th>
+      <th>Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for fixture in fixtures %}
+      <tr>
+        <td>{{ fixture.event_date }}</td>
+        <td>{{ fixture.home_team }}</td>
+        <td>{{ fixture.away_team }}</td>
+        <td>{{ fixture.winner }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+        <a href="{{ url_for('teams_without_fixtures') }}">Show Teams Without Fixtures</a>
+
+        <br>
+
+        <h2>League Table</h2>
+        <form method="post" action="{{ url_for('display_league_table') }}">
+            <button type="submit">Display League Table</button>
+        </form>
+
+</body>
+</html>

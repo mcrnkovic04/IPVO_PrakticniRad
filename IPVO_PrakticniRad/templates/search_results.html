@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for "{{ search_query }}"</h1>
+
+    {% if teams %}
+        <ul>
+            {% for team in teams %}
+                <li>
+                    {{ team.name }}
+                    <ul>
+                        {% for fixture in fixtures %}
+                            {% if team.name in [fixture.home_team, fixture.away_team] %}
+                                <li>{{ fixture.event_date }} - {{ fixture.home_team }} vs {{ fixture.away_team }} (Result: {{ fixture.winner }})</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matches found for the search query.</p>
+    {% endif %}
+</body>
+</html>
